@@ -1,0 +1,2 @@
+@openzeppelin/=node_modules/@openzeppelin/contracts/
+@solady/=node_modules/solady/src/
