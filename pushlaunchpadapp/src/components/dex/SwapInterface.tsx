@@ -98,7 +98,7 @@ export default function SwapInterface({ preSelectedToken }: SwapInterfaceProps) 
             );
             setTokensInitialized(true);
         }
-    }, [preSelectedToken, launches, tokensInitialized]);
+    }, [preSelectedToken, launches, tokensInitialized, setFromToken, setToToken]);
 
     useEffect(() => {
         let cancelled = false;

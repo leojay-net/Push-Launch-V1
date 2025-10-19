@@ -90,7 +90,7 @@ export default function LiquidityInterface() {
     return () => {
       cancelled = true;
     };
-  }, [tokenA, tokenB]);
+  }, [tokenA, tokenB, getPairInfo, amountA]);
 
   const handleAmountAChange = (value: string) => {
     const v = clampDecimals(value, tokenA?.decimals);

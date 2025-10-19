@@ -1,13 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Layout from "@/components/layout/Layout";
 import SwapInterface from "@/components/dex/SwapInterface";
 
-export default function DexPage() {
-    const searchParams = useSearchParams();
-    const tokenParam = searchParams.get("token");
+interface DexPageProps {
+    searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default function DexPage({ searchParams }: DexPageProps) {
+    const tokenParam = Array.isArray(searchParams?.token)
+        ? searchParams?.token[0]
+        : (searchParams?.token as string | undefined | null) ?? null;
 
     return (
         <Layout>
@@ -26,6 +27,7 @@ export default function DexPage() {
                     )}
                 </div>
 
+                {/* SwapInterface is a client component, pass tokenParam down */}
                 <SwapInterface preSelectedToken={tokenParam} />
             </div>
         </Layout>

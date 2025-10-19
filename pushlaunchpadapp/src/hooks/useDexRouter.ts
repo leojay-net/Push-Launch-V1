@@ -159,7 +159,7 @@ export function useDexRouter() {
                     rpcProvider
                 );
 
-                const [token0, token1, reserves, totalSupply]: [
+                const [token0, _token1, reserves, totalSupply]: [
                     string,
                     string,
                     { reserve0: bigint; reserve1: bigint; blockTimestampLast: number },

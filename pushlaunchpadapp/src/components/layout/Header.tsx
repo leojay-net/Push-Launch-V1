@@ -13,7 +13,8 @@ import {
     FileText,
     Wallet,
     Droplets,
-    Store
+    Store,
+    Droplet
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Button from "../ui/Button";
@@ -24,6 +25,7 @@ const navigation = [
     { name: "Liquidity", href: "/liquidity", icon: Droplets },
     { name: "Launch", href: "/launch", icon: Rocket },
     { name: "Marketplace", href: "/marketplace", icon: Store },
+    { name: "Faucet", href: "/faucet", icon: Droplet },
 ];
 
 const externalLinks = [
