@@ -10,15 +10,21 @@ import Badge from "../ui/Badge";
 import TokenSelector from "@/components/dex/TokenSelector";
 import SlippageSettings from "@/components/dex/SlippageSettings";
 import { formatNumber } from "@/lib/utils";
-import { COMMON_TOKENS, type Token } from "@/lib/contracts";
+import { COMMON_TOKENS, CONTRACTS, type Token } from "@/lib/contracts";
 import { useDexRouter } from "@/hooks/useDexRouter";
+import { useLaunchHistory } from "@/hooks/useLaunchHistory";
+import { useNotification } from "@/components/ui/Notification";
 
 interface TokenBalance {
     raw: bigint;
     formatted: string;
 }
 
-export default function SwapInterface() {
+interface SwapInterfaceProps {
+    preSelectedToken?: string | null;
+}
+
+export default function SwapInterface({ preSelectedToken }: SwapInterfaceProps) {
     const {
         quoteExactInput,
         swapExactTokensForTokens,
@@ -29,14 +35,11 @@ export default function SwapInterface() {
         getPairInfo,
     } = useDexRouter();
 
-    const [fromToken, setFromToken] = useState<Token | null>(
-        COMMON_TOKENS[0] ?? null
-    );
-    const [toToken, setToToken] = useState<Token | null>(
-        COMMON_TOKENS[1]?.address !== COMMON_TOKENS[0]?.address
-            ? COMMON_TOKENS[1] ?? null
-            : null
-    );
+    const { launches } = useLaunchHistory();
+    const { addNotification } = useNotification();
+
+    const [fromToken, setFromToken] = useState<Token | null>(null);
+    const [toToken, setToToken] = useState<Token | null>(null);
     const [fromAmount, setFromAmount] = useState<string>("");
     const [toAmount, setToAmount] = useState<string>("");
     const [minimumReceived, setMinimumReceived] = useState<string>("0");
@@ -55,6 +58,47 @@ export default function SwapInterface() {
     const [slippage, setSlippage] = useState(0.5);
 
     const slippageBps = useMemo(() => Math.round(slippage * 100), [slippage]);
+
+    // Track if tokens have been initialized to prevent re-initialization
+    const [tokensInitialized, setTokensInitialized] = useState(false);
+
+    // Initialize tokens based on URL parameter
+    useEffect(() => {
+        // Only initialize once
+        if (tokensInitialized) return;
+
+        if (preSelectedToken && ethers.isAddress(preSelectedToken)) {
+            // Check if it's a graduated token
+            const graduatedToken = launches.find(
+                l => l.status === "completed" && l.token.toLowerCase() === preSelectedToken.toLowerCase()
+            );
+
+            if (graduatedToken) {
+                // Set graduated token as toToken (user will swap WETH for it)
+                setToToken({
+                    address: graduatedToken.token,
+                    symbol: graduatedToken.symbol,
+                    name: graduatedToken.name,
+                    decimals: 18,
+                });
+                // Set WETH as fromToken
+                const weth = COMMON_TOKENS.find(t => t.symbol === "WETH");
+                if (weth) {
+                    setFromToken(weth);
+                }
+                setTokensInitialized(true);
+            }
+        } else if (!tokensInitialized) {
+            // Default initialization
+            setFromToken(COMMON_TOKENS[0] ?? null);
+            setToToken(
+                COMMON_TOKENS[1]?.address !== COMMON_TOKENS[0]?.address
+                    ? COMMON_TOKENS[1] ?? null
+                    : null
+            );
+            setTokensInitialized(true);
+        }
+    }, [preSelectedToken, launches, tokensInitialized]);
 
     useEffect(() => {
         let cancelled = false;
@@ -264,9 +308,17 @@ export default function SwapInterface() {
                 setBalances({ from: fromBalance, to: toBalance });
             }
 
-            alert("Swap submitted! Transaction sent to network.");
+            addNotification({
+                type: "success",
+                title: "Swap Successful",
+                message: `Successfully swapped ${fromAmount} ${fromToken.symbol} for ${toToken.symbol}`,
+            });
         } catch (err) {
-            alert("Swap failed: " + (err as Error).message);
+            addNotification({
+                type: "error",
+                title: "Swap Failed",
+                message: (err as Error).message,
+            });
         }
     };
 

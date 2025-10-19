@@ -144,19 +144,31 @@ export default function TokenCard({
                             <Clock className="h-3 w-3" />
                             {formatTimeAgo(timestamp)}
                         </span>
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                window.open(
-                                    `https://donut.push.network/address/${token}`,
-                                    "_blank"
-                                );
-                            }}
-                            className="flex items-center gap-1 font-medium text-emerald-600 transition hover:text-emerald-700"
-                        >
-                            Explorer
-                            <ExternalLink className="w-3 h-3" />
-                        </button>
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.open(
+                                        `https://donut.push.network/address/${token}`,
+                                        "_blank"
+                                    );
+                                }}
+                                className="flex items-center gap-1 font-medium text-emerald-600 transition hover:text-emerald-700"
+                            >
+                                Explorer
+                                <ExternalLink className="w-3 h-3" />
+                            </button>
+                            {status === "completed" && (
+                                <Link
+                                    href={`/dex?token=${token}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="flex items-center gap-1 font-medium text-emerald-600 transition hover:text-emerald-700"
+                                >
+                                    Trade DEX
+                                    <ExternalLink className="w-3 h-3" />
+                                </Link>
+                            )}
+                        </div>
                     </div>
                 </div>
             </Card>

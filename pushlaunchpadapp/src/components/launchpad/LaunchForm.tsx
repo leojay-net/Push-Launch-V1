@@ -8,6 +8,7 @@ import Button from "../ui/Button";
 import BondingCurveChart from "@/components/launchpad/BondingCurveChart";
 import { BONDING_CURVE_CONFIG } from "@/lib/contracts";
 import { useLaunchpad } from "@/hooks/useLaunchpad";
+import { useNotification } from "@/components/ui/Notification";
 
 export default function LaunchForm() {
     const {
@@ -20,6 +21,8 @@ export default function LaunchForm() {
         isWalletConnected,
     } = useLaunchpad();
 
+    const { addNotification } = useNotification();
+
     const [tokenName, setTokenName] = useState("");
     const [tokenSymbol, setTokenSymbol] = useState("");
     const [totalSupply, setTotalSupply] = useState(BONDING_CURVE_CONFIG.TOTAL_SUPPLY);
@@ -30,7 +33,11 @@ export default function LaunchForm() {
 
     const handleLaunch = async () => {
         if (!tokenName || !tokenSymbol) {
-            alert("Please fill required fields");
+            addNotification({
+                type: "warning",
+                title: "Missing Information",
+                message: "Please fill in token name and symbol",
+            });
             return;
         }
 
@@ -48,8 +55,19 @@ export default function LaunchForm() {
             setTotalSupply(BONDING_CURVE_CONFIG.TOTAL_SUPPLY);
             setBondingSupply(BONDING_CURVE_CONFIG.BONDING_SUPPLY);
             refreshLaunchFee();
+
+            addNotification({
+                type: "success",
+                title: "Token Launched!",
+                message: `${tokenSymbol} has been successfully launched`,
+            });
         } catch (error) {
             console.error("Token launch failed:", error);
+            addNotification({
+                type: "error",
+                title: "Launch Failed",
+                message: (error as Error).message || "Failed to launch token",
+            });
         }
     };
 

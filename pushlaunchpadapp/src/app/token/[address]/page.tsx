@@ -197,15 +197,26 @@ export default function TokenPage({
                             <p className="text-sm text-gray-600 mb-2">
                                 {formatAddress(tokenInfo.address)}
                             </p>
-                            <a
-                                href={`https://donut.push.network/address/${tokenInfo.address}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
-                            >
-                                View on Explorer
-                                <ExternalLink className="w-3 h-3" />
-                            </a>
+                            <div className="flex items-center gap-4">
+                                <a
+                                    href={`https://donut.push.network/address/${tokenInfo.address}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                                >
+                                    View on Explorer
+                                    <ExternalLink className="w-3 h-3" />
+                                </a>
+                                {!tokenInfo.isActive && (
+                                    <Link
+                                        href={`/dex?token=${tokenAddress}`}
+                                        className="inline-flex items-center gap-1 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                                    >
+                                        Trade on DEX
+                                        <ExternalLink className="w-3 h-3" />
+                                    </Link>
+                                )}
+                            </div>
                         </div>
 
                         <Button
@@ -337,8 +348,8 @@ export default function TokenPage({
                                                 type="button"
                                                 onClick={() => switchMode("buy")}
                                                 className={`rounded-full px-6 py-2 transition ${tradeMode === "buy"
-                                                        ? "bg-emerald-600 text-white shadow"
-                                                        : "text-gray-600 hover:text-emerald-600"
+                                                    ? "bg-emerald-600 text-white shadow"
+                                                    : "text-gray-600 hover:text-emerald-600"
                                                     }`}
                                             >
                                                 Buy
@@ -347,8 +358,8 @@ export default function TokenPage({
                                                 type="button"
                                                 onClick={() => switchMode("sell")}
                                                 className={`rounded-full px-6 py-2 transition ${tradeMode === "sell"
-                                                        ? "bg-red-600 text-white shadow"
-                                                        : "text-gray-600 hover:text-red-600"
+                                                    ? "bg-red-600 text-white shadow"
+                                                    : "text-gray-600 hover:text-red-600"
                                                     }`}
                                             >
                                                 Sell
@@ -406,8 +417,8 @@ export default function TokenPage({
                                                     <span className="text-gray-600">Price Impact</span>
                                                     <span
                                                         className={`font-medium ${Math.abs(priceImpact) > 5
-                                                                ? "text-red-600"
-                                                                : "text-emerald-600"
+                                                            ? "text-red-600"
+                                                            : "text-emerald-600"
                                                             }`}
                                                     >
                                                         {priceImpact > 0 ? "+" : ""}
