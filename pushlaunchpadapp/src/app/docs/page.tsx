@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Book, ChevronRight, Code, Coins, Rocket, Shield, TrendingUp, Zap } from "lucide-react";
+import { Book, ChevronRight, Code, Coins, Rocket, Shield, TrendingUp, Zap, Droplet } from "lucide-react";
 import Link from "next/link";
 import Layout from "@/components/layout/Layout";
 import Card from "@/components/ui/Card";
@@ -38,6 +38,44 @@ To begin using Push Launchpad:
 2. Ensure you have sufficient funds for gas fees
 3. Start trading, launching tokens, or providing liquidity
     `
+    },
+    {
+        id: "faucet",
+        title: "Test Token Faucet",
+        icon: Droplet,
+        content: `
+# Test Token Faucet
+
+Mint test tokens instantly to try the DEX, launchpad, and liquidity features.
+
+## Overview
+
+The faucet provides a quick way to mint fixed amounts of our 6 static test tokens on Push Chain testnet so you can explore swaps and liquidity without real funds.
+
+## Tokens Available
+
+- **WETH** (18 decimals)
+- **USDT** (6 decimals)
+- **USDC** (6 decimals)
+- **DAI** (18 decimals)
+- **BSC** (18 decimals)
+- **WPUSH** (18 decimals)
+
+## How it Works
+
+1. Go to the Faucet page
+2. Connect your wallet
+3. Click Mint for the token(s) you need
+4. Wait a few seconds for the universal transaction to complete
+
+To prevent abuse, each token has a short cooldown between mints per address.
+
+## Where to Find It
+
+Visit the Faucet at: /faucet
+
+After minting, go to the DEX to swap or to Liquidity to provide LP.
+        `
     },
     {
         id: "token-launch",
@@ -320,72 +358,10 @@ To disconnect your wallet:
         content: `
 # Security & Audits
 
-Push Launchpad prioritizes security at every level.
+Coming soon.
 
-## Smart Contract Security
-
-### Audited Contracts
-
-All core contracts have been audited by leading security firms:
-
-- **Factory Contract**: Token pair creation and management
-- **Router Contract**: Token swapping and liquidity operations
-- **Pair Contract**: Individual liquidity pool logic
-- **Launchpad Contract**: Token launch and bonding curve mechanics
-
-### Security Features
-
-**Reentrancy Protection**: All external calls use the Checks-Effects-Interactions pattern
-
-**Access Controls**: Admin functions are protected with multi-signature requirements
-
-**Pausable Emergency**: Critical functions can be paused in emergency situations
-
-**Upgrade Safety**: Proxy patterns allow security fixes without migrating liquidity
-
-## User Security
-
-### Transaction Safety
-
-- Review all transaction details before signing
-- Check token addresses to avoid scam tokens
-- Verify contract addresses match official documentation
-- Monitor for unusual approvals or permissions
-
-### Token Verification
-
-Tokens are marked with badges:
-
-- **Verified**: Officially verified by the team
-- **Audited**: Smart contract has been audited
-- **Community**: Popular community tokens
-- **Unverified**: Proceed with caution
-
-## Reporting Vulnerabilities
-
-Found a security issue? We appreciate responsible disclosure:
-
-1. Email: security@pushlaunchpad.io
-2. Do not publicly disclose until patched
-3. Provide detailed reproduction steps
-4. Bounties available for critical issues
-
-## Insurance & Recovery
-
-- User funds are never held by the platform
-- Liquidity is locked in audited smart contracts
-- No admin keys can access user assets
-- Multi-signature governance for protocol changes
-
-## Best Practices
-
-- Use hardware wallets for large amounts
-- Enable 2FA on wallet applications
-- Keep recovery phrases offline and secure
-- Verify URLs before connecting wallet
-- Start with small test transactions
-- Be wary of social engineering attacks
-    `
+We're preparing comprehensive security documentation, including audit reports, threat models, and best-practice guides. Check back soon.
+        `
     },
     {
         id: "api",
@@ -394,149 +370,10 @@ Found a security issue? We appreciate responsible disclosure:
         content: `
 # API Reference
 
-Integrate Push Launchpad into your applications.
+Coming soon.
 
-## REST API
-
-### Base URL
-
-\`\`\`
-https://api.pushlaunchpad.io/v1
-\`\`\`
-
-### Authentication
-
-Most endpoints are public. Rate limits apply:
-
-- **Public**: 100 requests/minute
-- **Authenticated**: 1000 requests/minute
-
-### Endpoints
-
-#### Get Token Information
-
-\`\`\`
-GET /tokens/:address
-\`\`\`
-
-Response:
-\`\`\`json
-{
-  "address": "0x...",
-  "symbol": "MTK",
-  "name": "My Token",
-  "decimals": 18,
-  "totalSupply": "1000000",
-  "price": "1.23",
-  "priceChange24h": "5.67",
-  "volume24h": "123456.78",
-  "marketCap": "1234567.89",
-  "holders": 1234
-}
-\`\`\`
-
-#### Get Pair Information
-
-\`\`\`
-GET /pairs/:pairAddress
-\`\`\`
-
-Response:
-\`\`\`json
-{
-  "address": "0x...",
-  "token0": {
-    "address": "0x...",
-    "symbol": "MTK"
-  },
-  "token1": {
-    "address": "0x...",
-    "symbol": "USDC"
-  },
-  "reserve0": "1000000",
-  "reserve1": "2000000",
-  "totalSupply": "1414213.56",
-  "volumeUSD": "123456.78"
-}
-\`\`\`
-
-#### Get Price Quote
-
-\`\`\`
-GET /quote?tokenIn=0x...&tokenOut=0x...&amountIn=1000
-\`\`\`
-
-Response:
-\`\`\`json
-{
-  "amountOut": "998.50",
-  "priceImpact": "0.15",
-  "path": ["0x...", "0x..."],
-  "fee": "3.00"
-}
-\`\`\`
-
-## GraphQL API
-
-### Endpoint
-
-\`\`\`
-https://api.pushlaunchpad.io/graphql
-\`\`\`
-
-### Example Query
-
-\`\`\`graphql
-query {
-  token(address: "0x...") {
-    symbol
-    name
-    decimals
-    price
-    volume24h
-    pairs {
-      address
-      token0 {
-        symbol
-      }
-      token1 {
-        symbol
-      }
-      reserveUSD
-    }
-  }
-}
-\`\`\`
-
-## WebSocket API
-
-Real-time price updates:
-
-\`\`\`javascript
-const ws = new WebSocket('wss://api.pushlaunchpad.io/v1/ws');
-
-ws.on('open', () => {
-  ws.send(JSON.stringify({
-    type: 'subscribe',
-    channel: 'prices',
-    pairs: ['MTK-USDC', 'ETH-USDC']
-  }));
-});
-
-ws.on('message', (data) => {
-  const update = JSON.parse(data);
-  console.log(update);
-});
-\`\`\`
-
-## Rate Limits
-
-- Free tier: 100 requests/minute
-- Pro tier: 1000 requests/minute
-- Enterprise: Custom limits
-
-Contact us for higher limits.
-    `
+Our REST/GraphQL/WebSocket APIs are being finalized. We will publish endpoints, schemas, examples, and rate limits here soon.
+                `
     }
 ];
 
@@ -694,6 +531,12 @@ export default function DocsPage() {
                                         <div className="p-4 border border-gray-200 rounded-lg hover:border-emerald-500 hover:shadow-sm transition-all cursor-pointer">
                                             <div className="font-medium text-gray-900 mb-1">Explore Tokens</div>
                                             <div className="text-sm text-gray-600">Browse marketplace</div>
+                                        </div>
+                                    </Link>
+                                    <Link href="/faucet">
+                                        <div className="p-4 border border-gray-200 rounded-lg hover:border-emerald-500 hover:shadow-sm transition-all cursor-pointer">
+                                            <div className="font-medium text-gray-900 mb-1">Get Test Tokens</div>
+                                            <div className="text-sm text-gray-600">Go to Faucet</div>
                                         </div>
                                     </Link>
                                 </div>
