@@ -12,7 +12,7 @@ import Card from "../ui/Card";
 import Badge from "../ui/Badge";
 import { formatAddress } from "@/lib/utils";
 
-const QUOTE_SYMBOL = "WETH";
+const QUOTE_SYMBOL = "WPUSH";
 
 interface TokenCardProps {
     token: string;

@@ -227,13 +227,13 @@ export default function LaunchForm() {
                     <div className="text-center p-3 bg-gray-50 rounded-lg">
                         <p className="text-sm text-gray-600 mb-1">Initial Price</p>
                         <p className="text-lg font-semibold text-gray-900">
-                            {(parseInt(BONDING_CURVE_CONFIG.VIRTUAL_QUOTE) / parseInt(BONDING_CURVE_CONFIG.VIRTUAL_BASE)).toFixed(8)} WETH
+                            {(parseInt(BONDING_CURVE_CONFIG.VIRTUAL_QUOTE) / parseInt(BONDING_CURVE_CONFIG.VIRTUAL_BASE)).toFixed(8)} WPUSH
                         </p>
                     </div>
                     <div className="text-center p-3 bg-gray-50 rounded-lg">
                         <p className="text-sm text-gray-600 mb-1">Target Raise</p>
                         <p className="text-lg font-semibold text-gray-900">
-                            {BONDING_CURVE_CONFIG.VIRTUAL_QUOTE} WETH
+                            {BONDING_CURVE_CONFIG.VIRTUAL_QUOTE} WPUSH
                         </p>
                     </div>
                 </div>

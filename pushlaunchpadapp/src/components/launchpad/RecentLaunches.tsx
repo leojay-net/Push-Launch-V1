@@ -21,7 +21,7 @@ import Badge from "../ui/Badge";
 import { formatAddress } from "@/lib/utils";
 import { useLaunchHistory } from "@/hooks/useLaunchHistory";
 
-const QUOTE_SYMBOL = "WETH";
+const QUOTE_SYMBOL = "WPUSH";
 
 const formatRaised = (value: string): string => {
     const numeric = Number.parseFloat(value);

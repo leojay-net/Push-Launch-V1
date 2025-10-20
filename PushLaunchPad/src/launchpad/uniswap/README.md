@@ -116,14 +116,14 @@ const hre = require("hardhat");
 
 async function main() {
   const factory = process.env.UNIV2_FACTORY;
-  const weth9 = process.env.WETH9_ADDRESS;
+  const wpush9 = process.env.WETH9_ADDRESS;
   
   console.log("Deploying UniswapV2Router02...");
   console.log("Factory:", factory);
-  console.log("WETH9:", weth9);
+  console.log("WETH9:", wpush9);
   
   const Router = await hre.ethers.getContractFactory("UniswapV2Router02");
-  const router = await Router.deploy(factory, weth9);
+  const router = await Router.deploy(factory, wpush9);
   await router.deployed();
   
   console.log("Router deployed to:", router.address);

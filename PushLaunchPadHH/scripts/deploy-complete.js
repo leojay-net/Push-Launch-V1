@@ -65,9 +65,9 @@ async function main() {
             console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
             const MintableWETH = await hre.ethers.getContractFactory("MintableWETH");
-            const weth = await MintableWETH.deploy();
-            await weth.waitForDeployment();
-            WETH_ADDRESS = await weth.getAddress();
+            const wpush = await MintableWETH.deploy();
+            await wpush.waitForDeployment();
+            WETH_ADDRESS = await wpush.getAddress();
             deployedAddresses.WETH = WETH_ADDRESS;
             deployedAddresses.WETH_Deployed = true;
 
@@ -75,11 +75,11 @@ async function main() {
 
             // Mint some initial WETH to deployer for testing
             const mintAmount = hre.ethers.parseEther("100");
-            const mintTx = await weth.mint(deployer.address, mintAmount);
+            const mintTx = await wpush.mint(deployer.address, mintAmount);
             await mintTx.wait();
-            const wethBal = await weth.balanceOf(deployer.address);
+            const wpushBal = await wpush.balanceOf(deployer.address);
             console.log("   Minted:", hre.ethers.formatEther(mintAmount), "WETH to", deployer.address);
-            console.log("   Deployer WETH balance:", hre.ethers.formatEther(wethBal));
+            console.log("   Deployer WETH balance:", hre.ethers.formatEther(wpushBal));
             console.log("");
         } else {
             console.log("ℹ️  Using provided WETH address:", WETH_ADDRESS);

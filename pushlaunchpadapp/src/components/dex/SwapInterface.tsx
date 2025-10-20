@@ -74,17 +74,17 @@ export default function SwapInterface({ preSelectedToken }: SwapInterfaceProps) 
             );
 
             if (graduatedToken) {
-                // Set graduated token as toToken (user will swap WETH for it)
+                // Set graduated token as toToken (user will swap WPUSH for it)
                 setToToken({
                     address: graduatedToken.token,
                     symbol: graduatedToken.symbol,
                     name: graduatedToken.name,
                     decimals: 18,
                 });
-                // Set WETH as fromToken
-                const weth = COMMON_TOKENS.find(t => t.symbol === "WETH");
-                if (weth) {
-                    setFromToken(weth);
+                // Set WPUSH as fromToken
+                const wpush = COMMON_TOKENS.find(t => t.symbol === "WPUSH");
+                if (wpush) {
+                    setFromToken(wpush);
                 }
                 setTokensInitialized(true);
             }

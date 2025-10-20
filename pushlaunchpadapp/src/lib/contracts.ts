@@ -33,10 +33,10 @@ export interface Token {
 export const COMMON_TOKENS: Token[] = [
     {
         address: CONTRACTS.WETH,
-        symbol: "WETH",
-        name: "Wrapped Ether",
+        symbol: "WPUSH",
+        name: "Wrapped PUSH",
         decimals: 18,
-        logoURI: "/tokens/weth.png",
+        logoURI: "/tokens/wpush.png",
     },
     {
         address: "0xf5065BA2DBF1Ec636531253449983f0EafebfD87",
@@ -66,20 +66,13 @@ export const COMMON_TOKENS: Token[] = [
         decimals: 18,
         logoURI: "/tokens/bsc.png",
     },
-    {
-        address: "0x1e87a2194c31bFDE3999074e3EbB34d5c5830985",
-        symbol: "WPUSH",
-        name: "Wrapped PUSH",
-        decimals: 18,
-        logoURI: "/tokens/wpush.png",
-    },
     // Add more tokens as they launch
 ];
 
 // Bonding Curve Configuration
 export const BONDING_CURVE_CONFIG = {
     VIRTUAL_BASE: "200000000", // 200M tokens
-    VIRTUAL_QUOTE: "10", // 10 WETH
+    VIRTUAL_QUOTE: "10", // 10 WPUSH
     BONDING_SUPPLY: "800000000", // 800M tokens
     TOTAL_SUPPLY: "1000000000", // 1B tokens
 };

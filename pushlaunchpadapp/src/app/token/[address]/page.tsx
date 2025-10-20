@@ -21,7 +21,7 @@ import { formatAddress } from "@/lib/utils";
 import { useLaunchpadTrading } from "@/hooks/useLaunchpadTrading";
 import { ethers } from "ethers";
 
-const QUOTE_SYMBOL = "WETH";
+const QUOTE_SYMBOL = "WPUSH";
 
 export default function TokenPage({
     params,

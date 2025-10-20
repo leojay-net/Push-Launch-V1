@@ -58,7 +58,7 @@ async function main() {
     network: "Push Chain Testnet",
     chainId: 42101,
     router: ROUTER,
-    weth: WETH,
+    wpush: WETH,
     deployer: deployer.address,
     tokens,
     timestamp: new Date().toISOString(),

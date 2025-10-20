@@ -2,13 +2,14 @@ import Layout from "@/components/layout/Layout";
 import SwapInterface from "@/components/dex/SwapInterface";
 
 interface DexPageProps {
-    searchParams?: { [key: string]: string | string[] | undefined };
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default function DexPage({ searchParams }: DexPageProps) {
-    const tokenParam = Array.isArray(searchParams?.token)
-        ? searchParams?.token[0]
-        : (searchParams?.token as string | undefined | null) ?? null;
+export default async function DexPage({ searchParams }: DexPageProps) {
+    const params = await searchParams;
+    const tokenParam = Array.isArray(params?.token)
+        ? params?.token[0]
+        : (params?.token as string | undefined | null) ?? null;
 
     return (
         <Layout>

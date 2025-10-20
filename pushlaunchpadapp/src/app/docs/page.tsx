@@ -54,12 +54,12 @@ The faucet provides a quick way to mint fixed amounts of our 6 static test token
 
 ## Tokens Available
 
-- **WETH** (18 decimals)
+- **WPUSH** (18 decimals)
 - **USDT** (6 decimals)
 - **USDC** (6 decimals)
 - **DAI** (18 decimals)
 - **BSC** (18 decimals)
-- **WPUSH** (18 decimals)
+  
 
 ## How it Works
 
